@@ -26,6 +26,43 @@
             background-color: #f9f9f9;
             color: var(--dark);
             line-height: 1.6;
+            padding-top: 40px; /* Добавлено для фиксированной шапки */
+        }
+        
+        /* Верхняя панель с соцсетями */
+        .top-bar {
+            background-color: var(--dark);
+            color: white;
+            padding: 5px 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 101;
+        }
+        
+        .top-bar-content {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .social-top {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-top a {
+            color: white;
+            font-size: 1.1rem;
+            transition: 0.3s;
+        }
+        
+        .social-top a:hover {
+            color: var(--accent);
         }
         
         /* Шапка */
@@ -34,8 +71,10 @@
             color: white;
             padding: 1rem 0;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 0;
+            position: fixed;
+            top: 30px; /* Учитываем высоту верхней панели */
+            left: 0;
+            width: 100%;
             z-index: 100;
         }
         
@@ -103,6 +142,7 @@
             display: flex;
             align-items: center;
             position: relative;
+            margin-top: 70px; /* Учитываем высоту шапки и верхней панели */
         }
         
         .hero::before {
@@ -689,6 +729,15 @@
                 max-width: 100%;
                 height: auto;
             }
+            
+            /* Адаптация верхней панели */
+            .top-bar-content {
+                justify-content: center;
+            }
+            
+            .social-top {
+                gap: 10px;
+            }
         }
         
         @media (max-width: 576px) {
@@ -723,6 +772,17 @@
     </style>
 </head>
 <body>
+    <!-- Верхняя панель с соцсетями -->
+    <div class="top-bar">
+        <div class="top-bar-content">
+            <div class="social-top">
+                <a href="https://vk.com/teplostart39" target="_blank"><i class="fab fa-vk"></i></a>
+                <a href="https://wa.me/79969597728" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                <a href="https://t.me/Teplostart39" target="_blank"><i class="fab fa-telegram"></i></a>
+            </div>
+        </div>
+    </div>
+
     <!-- Шапка -->
     <header>
         <div class="container">
@@ -1051,69 +1111,68 @@
     </footer>
 
 </html>
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        // Мобильное меню
-        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-        const nav = document.querySelector('nav');
-        mobileMenuBtn.addEventListener('click', () => {
-            nav.classList.toggle('active');
-        });
-
-        // Калькулятор
-        const calculateBtn = document.getElementById('calculate-btn');
-        if (calculateBtn) {
-            calculateBtn.addEventListener('click', function () {
-                const serviceSelect = document.getElementById('service');
-                const contoursInput = document.getElementById('contours');
-                const areaInput = document.getElementById('area');
-                const materialsAmount = document.getElementById('materials-amount');
-                const contoursAmount = document.getElementById('contours-amount');
-                const resultAmount = document.getElementById('result-amount');
-                const calculatorResult = document.getElementById('calculator-result');
-
-                const servicePrice = parseFloat(serviceSelect.value);
-                const contours = parseInt(contoursInput.value) || 1;
-                const area = parseFloat(areaInput.value) || 1;
-
-                if (contours <= 0 || area <= 0 || isNaN(servicePrice)) {
-                    alert('Пожалуйста, введите корректные значения.');
-                    return;
-                }
-
-                const materialsCost = servicePrice * area;
-                const contoursCost = 5300 * contours;
-                const totalCost = materialsCost + contoursCost;
-
-                materialsAmount.textContent = materialsCost.toLocaleString('ru-RU') + ' руб.';
-                contoursAmount.textContent = contours + ' (' + contoursCost.toLocaleString('ru-RU') + ' руб.)';
-                resultAmount.textContent = totalCost.toLocaleString('ru-RU') + ' руб.';
-
-                calculatorResult.classList.add('active');
-
-                if (window.innerWidth <= 768) {
-                    calculatorResult.scrollIntoView({ behavior: 'smooth' });
-                }
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Мобильное меню
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const nav = document.querySelector('nav');
+            mobileMenuBtn.addEventListener('click', () => {
+                nav.classList.toggle('active');
             });
-        }
 
-        // Плавная прокрутка
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    e.preventDefault();
-                    targetElement.scrollIntoView({ behavior: 'smooth' });
-                    if (nav.classList.contains('active')) {
-                        nav.classList.remove('active');
+            // Калькулятор
+            const calculateBtn = document.getElementById('calculate-btn');
+            if (calculateBtn) {
+                calculateBtn.addEventListener('click', function () {
+                    const serviceSelect = document.getElementById('service');
+                    const contoursInput = document.getElementById('contours');
+                    const areaInput = document.getElementById('area');
+                    const materialsAmount = document.getElementById('materials-amount');
+                    const contoursAmount = document.getElementById('contours-amount');
+                    const resultAmount = document.getElementById('result-amount');
+                    const calculatorResult = document.getElementById('calculator-result');
+
+                    const servicePrice = parseFloat(serviceSelect.value);
+                    const contours = parseInt(contoursInput.value) || 1;
+                    const area = parseFloat(areaInput.value) || 1;
+
+                    if (contours <= 0 || area <= 0 || isNaN(servicePrice)) {
+                        alert('Пожалуйста, введите корректные значения.');
+                        return;
                     }
-                }
+
+                    const materialsCost = servicePrice * area;
+                    const contoursCost = 5300 * contours;
+                    const totalCost = materialsCost + contoursCost;
+
+                    materialsAmount.textContent = materialsCost.toLocaleString('ru-RU') + ' руб.';
+                    contoursAmount.textContent = contours + ' (' + contoursCost.toLocaleString('ru-RU') + ' руб.)';
+                    resultAmount.textContent = totalCost.toLocaleString('ru-RU') + ' руб.';
+
+                    calculatorResult.classList.add('active');
+
+                    if (window.innerWidth <= 768) {
+                        calculatorResult.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            }
+
+            // Плавная прокрутка
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        e.preventDefault();
+                        targetElement.scrollIntoView({ behavior: 'smooth' });
+                        if (nav.classList.contains('active')) {
+                            nav.classList.remove('active');
+                        }
+                    }
+                });
             });
         });
-    });
-</script>
-
+    </script>
 </body>
 </html>
