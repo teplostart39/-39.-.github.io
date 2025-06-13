@@ -33,7 +33,7 @@
         .top-bar {
             background-color: var(--dark);
             color: white;
-            padding: 5px 0;
+            padding: 8px 0;
             position: fixed;
             top: 0;
             left: 0;
@@ -43,11 +43,12 @@
         
         .top-bar-content {
             display: flex;
-            justify-content: flex-end;
+            justify-content: space-between;
             align-items: center;
             width: 90%;
             max-width: 1200px;
             margin: 0 auto;
+            position: relative;
         }
         
         .social-top {
@@ -65,6 +66,21 @@
             color: var(--accent);
         }
         
+        .top-phone {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+        }
+        
+        .top-phone:hover {
+            color: var(--accent);
+        }
+
         /* Шапка */
         header {
             background: linear-gradient(135deg, var(--primary), var(--secondary));
@@ -78,6 +94,7 @@
             z-index: 100;
         }
         
+        /* Остальные стили остаются без изменений */
         .container {
             width: 90%;
             max-width: 1200px;
@@ -131,6 +148,78 @@
             color: white;
             font-size: 1.5rem;
             cursor: pointer;
+        }
+        
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .top-bar-content {
+                flex-direction: column;
+                gap: 5px;
+                padding: 5px 0;
+            }
+            
+            .top-phone {
+                order: -1; /* Перемещаем телефон наверх */
+                margin-bottom: 5px;
+                font-size: 0.8rem;
+            }
+            
+            .social-top {
+                gap: 10px;
+            }
+            
+            /* Остальные медиа-запросы остаются без изменений */
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 1rem;
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            nav ul li {
+                margin: 0.5rem 0;
+            }
+            
+            .hero {
+                height: auto;
+                padding: 5rem 0;
+            }
+            
+            .hero-content {
+                text-align: center;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn-outline {
+                margin-top: 15px;
+                margin-left: 0;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            nav {
+                display: none;
+            }
+            
+            nav.active {
+                display: block !important;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: var(--primary);
+                z-index: 999;
+            }
         }
         
         /* Герой-секция */
@@ -438,6 +527,105 @@
             margin-top: 8px;
         }
         
+        /* Портфолио */
+        .portfolio {
+            padding: 5rem 0;
+            background-color: white;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .portfolio-item {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: 0.3s;
+            height: 250px;
+            cursor: pointer;
+        }
+
+        .portfolio-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .portfolio-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.5s;
+        }
+
+        .portfolio-item:hover .portfolio-img {
+            transform: scale(1.05);
+        }
+
+        /* Модальное окно */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+            overflow: auto;
+        }
+
+        .modal-content {
+            margin: auto;
+            display: block;
+            max-width: 90%;
+            max-height: 90%;
+            margin-top: 50px;
+        }
+
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 35px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .prev, .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            width: auto;
+            padding: 16px;
+            margin-top: -22px;
+            color: white;
+            font-weight: bold;
+            font-size: 20px;
+            transition: 0.3s;
+            user-select: none;
+        }
+
+        .next {
+            right: 0;
+            border-radius: 3px 0 0 3px;
+        }
+
+        .prev {
+            left: 0;
+            border-radius: 0 3px 3px 0;
+        }
+
+        .prev:hover, .next:hover {
+            background-color: rgba(255,255,255,0.3);
+        }
+
         /* О компании */
         .about {
             padding: 5rem 0;
@@ -738,6 +926,18 @@
             .social-top {
                 gap: 10px;
             }
+            /* Адаптация портфолио */
+            .portfolio-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+            
+            .portfolio-item {
+                height: 200px;
+            }
+            
+            .modal-content {
+                margin-top: 70px;
+            }
         }
         
         @media (max-width: 576px) {
@@ -775,6 +975,9 @@
     <!-- Верхняя панель с соцсетями -->
     <div class="top-bar">
         <div class="top-bar-content">
+            <a href="tel:+79969597728" class="top-phone">
+                <i class="fas fa-phone"></i> +7 (996) 959-77-28
+            </a>
             <div class="social-top">
                 <a href="https://vk.com/teplostart39" target="_blank"><i class="fab fa-vk"></i></a>
                 <a href="https://wa.me/79969597728" target="_blank"><i class="fab fa-whatsapp"></i></a>
@@ -782,7 +985,6 @@
             </div>
         </div>
     </div>
-
     <!-- Шапка -->
     <header>
         <div class="container">
@@ -797,6 +999,7 @@
                 <nav>
                     <ul>
                         <li><a href="#services">Услуги</a></li>
+                        <li><a href="#portfolio">Портфолио</a></li>
                         <li><a href="#testimonials">Отзывы</a></li>
                         <li><a href="#calculator">Калькулятор</a></li>
                         <li><a href="#about">О нас</a></li>
@@ -874,6 +1077,53 @@
             </div>
         </div>
     </section>
+
+<!-- Портфолио -->
+<section id="portfolio" class="portfolio">
+    <div class="container">
+        <div class="section-title">
+            <h2>Наши работы</h2>
+        </div>
+        <div class="portfolio-grid">
+            <div class="portfolio-item" onclick="openModal();currentSlide(1)">
+                <img src="https://i.postimg.cc/SXMQwK3Z/1.webp" class="portfolio-img" alt="Пример работы 1">
+            </div>
+            <div class="portfolio-item" onclick="openModal();currentSlide(2)">
+                <img src="https://i.postimg.cc/H8ppc9xK/1.webp" class="portfolio-img" alt="Пример работы 2">
+            </div>
+            <div class="portfolio-item" onclick="openModal();currentSlide(3)">
+                <img src="https://i.postimg.cc/MnXpm5DJ/1.webp" class="portfolio-img" alt="Пример работы 3">
+            </div>
+            <div class="portfolio-item" onclick="openModal();currentSlide(4)">
+                <img src="https://i.postimg.cc/vc0mnk5v/2.webp" class="portfolio-img" alt="Пример работы 4">
+            </div>
+            <div class="portfolio-item" onclick="openModal();currentSlide(5)">
+                <img src="https://i.postimg.cc/47vfxSJV/3.webp" class="portfolio-img" alt="Пример работы 5">
+            </div>
+            <div class="portfolio-item" onclick="openModal();currentSlide(6)">
+                <img src="https://i.postimg.cc/68S5jZj2/1.webp" class="portfolio-img" alt="Пример работы 6">
+            </div>
+            <div class="portfolio-item" onclick="openModal();currentSlide(7)">
+                <img src="https://i.postimg.cc/KkhcF2ym/image.webp" class="portfolio-img" alt="Пример работы 7">
+            </div>
+            <div class="portfolio-item" onclick="openModal();currentSlide(8)">
+                <img src="https://i.postimg.cc/dDvQxwBB/1.webp" class="portfolio-img" alt="Пример работы 8">
+            </div>
+            <div class="portfolio-item" onclick="openModal();currentSlide(9)">
+                <img src="https://i.postimg.cc/QVbNLwYr/3.webp" class="portfolio-img" alt="Пример работы 9">
+            </div>
+        </div>
+    </div>
+</section>
+    <!-- Модальное окно для галереи -->
+    <div id="myModal" class="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+        <a class="next" onclick="plusSlides(1)">&#10095;</a>
+        <div class="modal-content-container">
+            <img class="modal-content" id="modalImg">
+        </div>
+    </div>
 
     <!-- Отзывы -->
     <section id="testimonials" class="testimonials">
@@ -1111,7 +1361,7 @@
     </footer>
 
 </html>
-    <script>
+  <script>
         document.addEventListener('DOMContentLoaded', function () {
             // Мобильное меню
             const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
@@ -1119,60 +1369,110 @@
             mobileMenuBtn.addEventListener('click', () => {
                 nav.classList.toggle('active');
             });
+    // Калькулятор
+    const calculateBtn = document.getElementById('calculate-btn');
+    if (calculateBtn) {
+        calculateBtn.addEventListener('click', function () {
+            const serviceSelect = document.getElementById('service');
+            const contoursInput = document.getElementById('contours');
+            const areaInput = document.getElementById('area');
+            const materialsAmount = document.getElementById('materials-amount');
+            const contoursAmount = document.getElementById('contours-amount');
+            const resultAmount = document.getElementById('result-amount');
+            const calculatorResult = document.getElementById('calculator-result');
 
-            // Калькулятор
-            const calculateBtn = document.getElementById('calculate-btn');
-            if (calculateBtn) {
-                calculateBtn.addEventListener('click', function () {
-                    const serviceSelect = document.getElementById('service');
-                    const contoursInput = document.getElementById('contours');
-                    const areaInput = document.getElementById('area');
-                    const materialsAmount = document.getElementById('materials-amount');
-                    const contoursAmount = document.getElementById('contours-amount');
-                    const resultAmount = document.getElementById('result-amount');
-                    const calculatorResult = document.getElementById('calculator-result');
+            const servicePrice = parseFloat(serviceSelect.value);
+            const contours = parseInt(contoursInput.value) || 1;
+            const area = parseFloat(areaInput.value) || 1;
 
-                    const servicePrice = parseFloat(serviceSelect.value);
-                    const contours = parseInt(contoursInput.value) || 1;
-                    const area = parseFloat(areaInput.value) || 1;
-
-                    if (contours <= 0 || area <= 0 || isNaN(servicePrice)) {
-                        alert('Пожалуйста, введите корректные значения.');
-                        return;
-                    }
-
-                    const materialsCost = servicePrice * area;
-                    const contoursCost = 5300 * contours;
-                    const totalCost = materialsCost + contoursCost;
-
-                    materialsAmount.textContent = materialsCost.toLocaleString('ru-RU') + ' руб.';
-                    contoursAmount.textContent = contours + ' (' + contoursCost.toLocaleString('ru-RU') + ' руб.)';
-                    resultAmount.textContent = totalCost.toLocaleString('ru-RU') + ' руб.';
-
-                    calculatorResult.classList.add('active');
-
-                    if (window.innerWidth <= 768) {
-                        calculatorResult.scrollIntoView({ behavior: 'smooth' });
-                    }
-                });
+            if (contours <= 0 || area <= 0 || isNaN(servicePrice)) {
+                alert('Пожалуйста, введите корректные значения.');
+                return;
             }
 
-            // Плавная прокрутка
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    const targetId = this.getAttribute('href');
-                    if (targetId === '#') return;
-                    const targetElement = document.querySelector(targetId);
-                    if (targetElement) {
-                        e.preventDefault();
-                        targetElement.scrollIntoView({ behavior: 'smooth' });
-                        if (nav.classList.contains('active')) {
-                            nav.classList.remove('active');
-                        }
-                    }
-                });
-            });
+            const materialsCost = servicePrice * area;
+            const contoursCost = 5300 * contours;
+            const totalCost = materialsCost + contoursCost;
+
+            materialsAmount.textContent = materialsCost.toLocaleString('ru-RU') + ' руб.';
+            contoursAmount.textContent = contours + ' (' + contoursCost.toLocaleString('ru-RU') + ' руб.)';
+            resultAmount.textContent = totalCost.toLocaleString('ru-RU') + ' руб.';
+
+            calculatorResult.classList.add('active');
+
+            if (window.innerWidth <= 768) {
+                calculatorResult.scrollIntoView({ behavior: 'smooth' });
+            }
         });
-    </script>
+    }
+
+    // Плавная прокрутка
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                e.preventDefault();
+                targetElement.scrollIntoView({ behavior: 'smooth' });
+                if (nav.classList.contains('active')) {
+                    nav.classList.remove('active');
+                }
+            }
+        });
+    });
+
+    // Галерея портфолио
+    const modal = document.getElementById('myModal');
+    const modalImg = document.getElementById('modalImg');
+    const images = [
+        "https://i.postimg.cc/SXMQwK3Z/1.webp",
+        "https://i.postimg.cc/H8ppc9xK/1.webp",
+        "https://i.postimg.cc/MnXpm5DJ/1.webp",
+        "https://i.postimg.cc/vc0mnk5v/2.webp",
+        "https://i.postimg.cc/47vfxSJV/3.webp",
+        "https://i.postimg.cc/68S5jZj2/1.webp",
+        "https://i.postimg.cc/KkhcF2ym/image.webp",
+        "https://i.postimg.cc/dDvQxwBB/1.webp",
+        "https://i.postimg.cc/QVbNLwYr/3.webp"
+    ];
+    let currentIndex = 1;
+
+    function openModal() {
+        modal.style.display = "block";
+        document.body.style.overflow = "hidden";
+    }
+
+    function closeModal() {
+        modal.style.display = "none";
+        document.body.style.overflow = "auto";
+    }
+
+    function currentSlide(n) {
+        currentIndex = n;
+        modalImg.src = images[currentIndex - 1];
+    }
+
+    function plusSlides(n) {
+        currentIndex += n;
+        if (currentIndex > images.length) { currentIndex = 1 }
+        if (currentIndex < 1) { currentIndex = images.length }
+        modalImg.src = images[currentIndex - 1];
+    }
+
+    // Закрытие модального окна при клике вне изображения
+    modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+            closeModal();
+        }
+    });
+
+    // Закрытие по ESC
+    document.addEventListener('keydown', function(e) {
+        if (e.key === "Escape") {
+            closeModal();
+        }
+    });
+});    </script>
 </body>
 </html>
